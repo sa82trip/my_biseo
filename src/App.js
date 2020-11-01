@@ -39,7 +39,7 @@ function App() {
       },
     };
     post("/login", formData, config).then((response) => {
-      console.log(response.data);
+      console.log(response);
       setData(response.data);
     });
   };
@@ -71,14 +71,18 @@ function App() {
         <button
           onClick={() => {
             get("/read?parameter=spring").then((response) => {
-              console.log(response.data);
+              console.log(response.title);
             });
           }}
         >
           read요청
         </button>
       </header>
-      <div>{data["result"]}</div>
+      <ul>
+        {data.map((one) => (
+          <li>{`${one.title} : => ${one.author}`}</li>
+        ))}
+      </ul>
     </div>
   );
 }

@@ -6,26 +6,11 @@ from flask_pymongo import PyMongo
 from pymongo import MongoClient
 from bson.json_util import loads, dumps
 
-
-# DB_HOST = '193.122.104.7'
-# DB_PORT = 27017
-# DB_ID = 'admin'
-# DB_PW = 'abc123'
-# client = MongoClient(DB_HOST, DB_PORT)
-# db = client['admin']
-# db.authenticate(DB_ID, DB_PW)
-# collection = db.collection
-# client = MongoClient('mongodb://193.122.104.7:27017/')
-client = MongoClient('mongodb://%s:%s@193.122.104.7:27017/' % ("myUserAdmin", "abc123"))
-# mongo --port 27017  --authenticationDatabase "admin" -u "myUserAdmin" -p
-
-db = client.test_database
-collection = db.test_collection
+# example of document
 post={
         "title": "test_title",
         "author":"Joon"
         }
-post_id = collection.insert_one(post).inserted_id
 
 
 app = Flask(__name__)
@@ -41,14 +26,10 @@ def login():
     print(request.form['id'])
     id = request.form['id']
     password = request.form['password']
-    result=[]
-    for index, doc in enumerate(collection.find({})):
-        print("가즈아", index)
-        print(doc)
-        result.append(dumps(doc))
+    result = work_with_mongo()
     # return f"{id}  {password}" 
+    return result
 
-    return {"result": result} 
 
 @app.route("/read")
 def read():
@@ -68,6 +49,21 @@ def read():
     else:
         result = past_result_list[parameter]
     save_to_file(result)
-        
-
     return{"result":result} 
+
+def work_with_mongo():
+
+    # mongodb connection
+    client = MongoClient('mongodb://%s:%s@193.122.104.7:27017/' % ("myUserAdmin", "abc123"))
+    # mongo --port 27017  --authenticationDatabase "admin" -u "myUserAdmin" -p
+    db = client.test_database
+    collection = db.test_collection
+
+    # example mongodb insert 
+    post_id = collection.insert_one(post).inserted_id
+    test_result = dumps(collection.find({}))
+    result=[]
+    if len(result) == 0 :
+        for index, doc in enumerate(test_result):
+            result.append(doc)
+    return test_result
