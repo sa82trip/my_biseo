@@ -21,12 +21,12 @@ past_result_list={}
 def get_current_time():
     return {'time': time.time()}
 
-@app.route('/login', methods=['POST'])
+@app.route('/insert', methods=['POST'])
 def login():
-    print(request.form['id'])
-    id = request.form['id']
-    password = request.form['password']
-    result = work_with_mongo()
+    print(request.form['author'])
+    author = request.form['author']
+    description = request.form['description']
+    result = work_with_mongo(author, description)
     # return f"{id}  {password}" 
     return result
 
@@ -51,7 +51,7 @@ def read():
     save_to_file(result)
     return{"result":result} 
 
-def work_with_mongo():
+def work_with_mongo(author, description):
 
     # mongodb connection
     client = MongoClient('mongodb://%s:%s@193.122.104.7:27017/' % ("myUserAdmin", "abc123"))
@@ -60,7 +60,10 @@ def work_with_mongo():
     collection = db.test_collection
 
     # example mongodb insert 
-    post_id = collection.insert_one(post).inserted_id
+    post_id = collection.insert_one({
+        "author":author,
+        "description":description
+        }).inserted_id
     test_result = dumps(collection.find({}))
     result=[]
     if len(result) == 0 :

@@ -3,8 +3,8 @@ import { post, get } from "axios";
 
 function App() {
   const [currentTime, setCurrentTime] = useState(0);
-  const [id, setId] = useState("");
-  const [password, setPassword] = useState("");
+  const [author, setAuthor] = useState("");
+  const [description, setDescription] = useState("");
 
   // python에서 받아온 딕셔너리
   const [data, setData] = useState([]);
@@ -18,27 +18,27 @@ function App() {
   }, []);
 
   const handleIdChange = (e) => {
-    const newId = e.target.value;
-    setId(newId);
+    const author = e.target.value;
+    setAuthor(author);
   };
   const handlePasswordChange = (e) => {
-    const newPassword = e.target.value;
-    setPassword(newPassword);
+    const newDescription = e.target.value;
+    setDescription(newDescription);
   };
 
   const postHandle = (e) => {
     e.preventDefault();
     console.log("enter");
     const formData = new FormData();
-    formData.append("id", id);
-    formData.append("password", password);
+    formData.append("author", author);
+    formData.append("description", description);
     console.log(formData);
     const config = {
       headers: {
         "content-type": "multipart/form-data",
       },
     };
-    post("/login", formData, config).then((response) => {
+    post("/insert", formData, config).then((response) => {
       console.log(response);
       setData(response.data);
     });
@@ -56,13 +56,18 @@ function App() {
         <p>The current time is {currentTime}.</p>
         <form onSubmit={postHandle}>
           <div>
-            <input type="text" name="id" value={id} onChange={handleIdChange} />
+            <input
+              type="text"
+              name="author"
+              value={author}
+              onChange={handleIdChange}
+            />
           </div>
           <div>
             <input
-              type="password"
-              name="password"
-              value={password}
+              type="description"
+              name="description"
+              value={description}
               onChange={handlePasswordChange}
             />
           </div>
@@ -80,7 +85,7 @@ function App() {
       </header>
       <ul>
         {data.map((one) => (
-          <li>{`${one.title} : => ${one.author}`}</li>
+          <li key={one._id}>{`${one.title} : => ${one.author}`}</li>
         ))}
       </ul>
     </div>
