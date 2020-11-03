@@ -1,18 +1,18 @@
 import time
-from scrapper import fetch_data 
+from scrapper import fetch_data
 from flask import Flask, render_template, request, send_file
 from save import save_to_file
 from flask_pymongo import PyMongo
 from pymongo import MongoClient
 from bson.json_util import loads, dumps
+from api_requester import request_weather_info
 
 # example of document
-post={
+todo={
         "title": "test_title",
-        "author":"Joon"
+        "user_id":"Joon",
+        "is_done":"false"
         }
-
-
 app = Flask(__name__)
 
 past_result_list={}
@@ -27,7 +27,7 @@ def login():
     author = request.form['author']
     description = request.form['description']
     result = work_with_mongo(author, description)
-    # return f"{id}  {password}" 
+    # return f"{id}  {password}"
     return result
 
 
@@ -49,7 +49,7 @@ def read():
     else:
         result = past_result_list[parameter]
     save_to_file(result)
-    return{"result":result} 
+    return{"result":result}
 
 def work_with_mongo(author, description):
 
@@ -59,7 +59,7 @@ def work_with_mongo(author, description):
     db = client.test_database
     collection = db.test_collection
 
-    # example mongodb insert 
+    # example mongodb insert
     post_id = collection.insert_one({
         "author":author,
         "description":description
@@ -70,3 +70,7 @@ def work_with_mongo(author, description):
         for index, doc in enumerate(test_result):
             result.append(doc)
     return test_result
+
+def main():
+    print(request_weather_info())
+main()
