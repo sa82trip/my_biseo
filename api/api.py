@@ -5,7 +5,7 @@ from save import save_to_file
 from flask_pymongo import PyMongo
 from pymongo import MongoClient
 from bson.json_util import loads, dumps
-from api_requester import request_weather_info
+from api_requester import request_weather_info, request_covid_info
 
 # example of document
 todo={
@@ -13,6 +13,7 @@ todo={
         "user_id":"Joon",
         "is_done":"false"
         }
+
 app = Flask(__name__)
 
 past_result_list={}
@@ -51,6 +52,15 @@ def read():
     save_to_file(result)
     return{"result":result}
 
+@app.route("/weather")
+def fetch_weather():
+    return request_weather_info()
+
+@app.route("/covid")
+def fetch_covid():
+    return request_covid_info()
+
+
 def work_with_mongo(author, description):
 
     # mongodb connection
@@ -71,6 +81,3 @@ def work_with_mongo(author, description):
             result.append(doc)
     return test_result
 
-def main():
-    print(request_weather_info())
-main()

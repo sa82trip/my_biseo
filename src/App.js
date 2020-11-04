@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { post, get } from "axios";
+import Weather from "./Weater";
+import Covid from "./Covid";
 
 function App() {
   const [currentTime, setCurrentTime] = useState(0);
   const [author, setAuthor] = useState("");
   const [description, setDescription] = useState("");
 
-  // python에서 받아온 딕셔너리
+  // python에서 받아온 data
   const [data, setData] = useState([]);
+
+  const [lon, setLon] = useState("");
+  const [lat, setLat] = useState("");
+  const [situation, setSituation] = useState([]);
 
   useEffect(() => {
     fetch("/time")
@@ -15,6 +21,11 @@ function App() {
       .then((data) => {
         setCurrentTime(data.time);
       });
+    fetch("/covid").then((res) => {
+      res.json().then((data) => {
+        setSituation(() => data.response.body.items.item);
+      });
+    });
   }, []);
 
   const handleIdChange = (e) => {
@@ -51,6 +62,8 @@ function App() {
         backgroundColor: "gray",
       }}
     >
+      <Weather lat={lat} lon={lon} />
+      <Covid test_props={situation} />
       <header className="App-header">
         <h1>My Biseo</h1>
         <p>The current time is {currentTime}.</p>
