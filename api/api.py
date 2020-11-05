@@ -6,6 +6,8 @@ from flask_pymongo import PyMongo
 from pymongo import MongoClient
 from bson.json_util import loads, dumps
 from api_requester import request_weather_info, request_covid_info
+from db_credential import ID, PASSWORD
+from datetime import datetime
 
 # example of document
 todo={
@@ -25,9 +27,10 @@ def get_current_time():
 @app.route('/insert', methods=['POST'])
 def login():
     print(request.form['author'])
+    print(request.form['description'])
     author = request.form['author']
     description = request.form['description']
-    result = work_with_mongo(author, description)
+    result = work_with_mongo(author, description, "insert")
     # return f"{id}  {password}"
     return result
 
@@ -58,26 +61,79 @@ def fetch_weather():
 
 @app.route("/covid")
 def fetch_covid():
-    return request_covid_info()
+    return dumps(request_covid_info())
 
-
-def work_with_mongo(author, description):
-
+@app.route("/delete")
+def delete_one():
+    print("gilgilgjil",request.args.get("target"))
+    # work_with_mongo를 이용해서 지울것이다.
+    user_id =ID
+    user_password = PASSWORD
     # mongodb connection
     client = MongoClient('mongodb://%s:%s@193.122.104.7:27017/' % ("myUserAdmin", "abc123"))
     # mongo --port 27017  --authenticationDatabase "admin" -u "myUserAdmin" -p
     db = client.test_database
     collection = db.test_collection
+    collection.delete_one({"created_date":request.args.get("target")})
+    # 지워지는거까진 완료
+    pass
+@app.route("/update")
+def update_one():
+    filter={'created_date':request.args.get("target")}
+    newValues={"$set":{'description':"update_test!!!"}}
+    user_id =ID 
+    user_password = PASSWORD
+    # mongodb connection
+    client = MongoClient('mongodb://%s:%s@193.122.104.7:27017/' % ("myUserAdmin", "abc123"))
+    # mongo --port 27017  --authenticationDatabase "admin" -u "myUserAdmin" -p
+    db = client.test_database
+    collection = db.test_collection
+    collection.update_one(filter, newValues)
+    
+@app.route("/selectAll")
+def selectAll():
+    print("selectAll")
+    user_id = ID
+    user_password = PASSWORD
+    # mongodb connection
+    client = MongoClient('mongodb://%s:%s@193.122.104.7:27017/' % ("myUserAdmin", "abc123"))
+    # mongo --port 27017  --authenticationDatabase "admin" -u "myUserAdmin" -p
+    db = client.test_database
+    collection = db.test_collection
+    dumped_result = dumps(collection.find())
+    result=dumped_result
+    print(dumped_result)
+    return result
 
-    # example mongodb insert
-    post_id = collection.insert_one({
-        "author":author,
-        "description":description
-        }).inserted_id
-    test_result = dumps(collection.find({}))
-    result=[]
-    if len(result) == 0 :
-        for index, doc in enumerate(test_result):
-            result.append(doc)
-    return test_result
+
+
+def work_with_mongo(author, description, kind):
+    user_id =ID
+    user_password = PASSWORD
+    # mongodb connection
+    client = MongoClient('mongodb://%s:%s@193.122.104.7:27017/' % ("myUserAdmin", "abc123"))
+    # mongo --port 27017  --authenticationDatabase "admin" -u "myUserAdmin" -p
+    db = client.test_database
+    collection = db.test_collection
+    result=dumps([])
+
+    if kind == "insert":
+        print("insert")
+        # example mongodb insert
+        now=str(datetime.now())
+        post_id = collection.insert_one({
+            "author":author,
+            "description":description,
+            "created_date":now,
+            "updated_date":now
+            }).inserted_id
+
+    if kind == "select":
+        dumped_result = dumps(collection.find({}))
+        result=dumped_result
+
+    dumped_result = dumps(collection.find({}))
+    result=dumped_result
+
+    return result
 

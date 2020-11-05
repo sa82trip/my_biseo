@@ -6,6 +6,7 @@ const Covid = () => {
   useEffect(() => {
     fetch("/covid").then((res) => {
       res.json().then((data) => {
+        console.log(JSON.stringify(data.response["body"].items.item));
         setSituation(() => data);
       });
     });
@@ -13,16 +14,9 @@ const Covid = () => {
   // 계속 에러가 난 이유는... 진짜 받아오기 전이니깐....
   return (
     <div className="covid">
-      <ul>
-        {situation.response
-          ? situation.response.body.items.item.map((one) => (
-              <li key={one.create_dt}>
-                {one.stateDt}, 누적확진자{one.decideCnt} 누적사망자
-                {one.deathCnt}
-              </li>
-            ))
-          : "no data"}
-      </ul>
+      {situation.response
+        ? situation.response.body.items.item[0]["decideCnt"]
+        : "없다"}
     </div>
   );
 };

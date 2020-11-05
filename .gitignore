@@ -27,3 +27,4 @@ __pycache__
 tags*
 api/csv_files/
 api/api_keys.py
+api/db_credential.py

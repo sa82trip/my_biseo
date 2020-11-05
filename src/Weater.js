@@ -8,7 +8,6 @@ const Weather = (lon, lan) => {
     const result = fetch(`/weather?lon=${lon}&lan=${lan}`).then((res) =>
       res.json()
     );
-    console.log(result);
     console.log(
       fetch("/weather").then((res) =>
         res.json().then((data) => setData(data["name"]))
