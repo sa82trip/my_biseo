@@ -1,15 +1,38 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import TodoList from "./TodoList";
 import { post, get } from "axios";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
-const TodoContainer = () => {
-  const H1 = styled.h1`
-    color: white;
-  `;
+// styled-component를 사용하기
+const H1 = styled.h1`
+  color: gray;
+  margin: 2px;
+  width: 100vh;
+  // props를 이용하기
+`;
+// styled-component를 상속하기
+const H1ex = styled(H1)`
+  background: gray;
+  color: white;
+`;
+
+const StyledTodoContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align: center;
+  justify-content: center;
+  visibility: ${(props) => (props.visibility ? "visible" : "collapse")};
+`;
+const TodoContainer = (props) => {
   const [todo, setTodo] = useState([]);
   const [author, setAuthor] = useState("");
   const [description, setDescription] = useState("");
+  const [visibility, setVisibility] = useState(false);
+
+  useEffect(() => {
+    setVisibility(() => props.visibility);
+    console.log("state  ", visibility);
+  });
 
   const handleAuthorChange = (e) => {
     const author = e.target.value;
@@ -61,10 +84,10 @@ const TodoContainer = () => {
     get("/selectAll").then((response) => setTodo(() => response.data));
   };
   return (
-    <div className="todocontainer">
+    <StyledTodoContainer visibility={visibility}>
       <H1>kandan Todo List</H1>
-      <button onClick={selectAllTodos}>todos</button>
-      <form onSubmit={postHandle}>
+      <H1ex>write what you need to do!!</H1ex>
+      <form style={{ display: "flex" }} onSubmit={postHandle}>
         <div>
           <input
             type="text"
@@ -82,13 +105,14 @@ const TodoContainer = () => {
           />
         </div>
         <button type="submit">todo 등록하기</button>
+        <button onClick={selectAllTodos}>todos</button>
       </form>
       <TodoList
         todo={todo}
         deleteHandle={deleteHandle}
         updateHandle={updateHandle}
       />
-    </div>
+    </StyledTodoContainer>
   );
 };
 export default TodoContainer;

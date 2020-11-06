@@ -89,7 +89,8 @@ def update_one():
     db = client.test_database
     collection = db.test_collection
     collection.update_one(filter, newValues)
-    
+
+# select whole todos
 @app.route("/selectAll")
 def selectAll():
     print("selectAll")

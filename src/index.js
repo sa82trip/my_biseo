@@ -3,9 +3,11 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import Nav from "./layout/Nav";
+import App from "./App";
 ReactDOM.render(
   <React.StrictMode>
     <Nav />
+    <App />
   </React.StrictMode>,
   document.getElementById("root")
 );
