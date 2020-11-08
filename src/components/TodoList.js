@@ -9,6 +9,7 @@ const TodoList = ({ todo, deleteHandle, updateHandle }) => {
         {todo.map((one, idx) => {
           return (
             <TodoItem
+              key={idx}
               todo={one}
               deleteHandle={deleteHandle}
               updateHandle={updateHandle}

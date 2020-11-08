@@ -8,6 +8,7 @@ from bson.json_util import loads, dumps
 from api_requester import request_weather_info, request_covid_info
 from db_credential import ID, PASSWORD
 from datetime import datetime
+from datetime import datetime, timedelta
 
 # example of document
 todo={
@@ -22,7 +23,7 @@ past_result_list={}
 
 @app.route('/time')
 def get_current_time():
-    return {'time': time.time()}
+    return {'time': datetime.now()}
 
 @app.route('/insert', methods=['POST'])
 def login():

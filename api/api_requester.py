@@ -12,7 +12,7 @@ from datetime import datetime, timedelta
 lat='37.5665'
 lon='126.9780'
 API_key=OPEN_WEATHER_API_KEY
-request_url=f"http://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API_key}"
+request_url=f"http://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&lang=kr&appid={API_key}"
 api_key=OPEN_COVID_API_KEY
 headers = {
     'User-Agent':
@@ -21,6 +21,7 @@ headers = {
 
 def request_weather_info():
     result = requests.get(request_url).json()
+    print(result)
     return result
 
 def request_covid_info():

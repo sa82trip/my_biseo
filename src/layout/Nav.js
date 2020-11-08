@@ -25,15 +25,19 @@ const StyledUl = styled.ul`
 const StyledLi = styled.li`
   list-style-type: none;
   margin: 0 2vw;
-  font-size: 3vh;
 `;
 const Styleda = styled.a`
   text-decoration: none;
-  color: black;
+  color: rgba(94, 92, 230);
+  font-size: 3vh;
+  font-weight: bold;
   padding: 2vw;
   font-family: monospace;
+  transition: background 2s;
   &:hover {
-    color: lightgray;
+    transform: rotate(360deg);
+    background: #e0eafc;
+    opacity: 30%;
   }
 `;
 
@@ -45,10 +49,10 @@ const Nav = () => {
           <StyledLi>github</StyledLi>
         </Styleda>
         <Styleda>
-          <StyledLi>Todo</StyledLi>
+          <StyledLi>My Biseo</StyledLi>
         </Styleda>
         <Styleda>
-          <StyledLi>blog</StyledLi>
+          <StyledLi>Todo</StyledLi>
         </Styleda>
       </StyledUl>
     </StyledNav>

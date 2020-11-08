@@ -1,20 +1,46 @@
 import React, { useState, useEffect } from "react";
-import { get } from "axios";
 import Weather from "./Weater";
 import Covid from "./Covid";
 import TodoContainer from "./components/TodoContainer";
-import Clock from "./components/Clock";
+import styled from "styled-components";
+import { Route } from "react-router-dom";
+import { Home, About } from "./pages/";
+import "./css/app.css";
+
+const StyledHeaderDiv = styled.div`
+  font-size: 3rem;
+  font-weight: bold;
+  color: orange;
+  padding: 1.5rem;
+  border: 2px yellow;
+`;
+
+const StyledAppContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr minmax(569px, auto) 1fr;
+  background: rgba(58, 58, 60);
+`;
 
 function App() {
   const [currentTime, setCurrentTime] = useState("");
   const [lon, setLon] = useState("");
   const [lat, setLat] = useState("");
-  const [situation, setSituation] = useState([]);
   const [visibleFlg, setVisivleFlg] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
+  // .then(() => {
+  //   const el = document.querySelector(".loader-container");
+  //   if (el) {
+  //     el.remove();
+  //     setIsLoading(!isLoading);
+  //   }
+  // });
   useEffect(() => {
+    console.log("isLoading", isLoading);
     fetch("/time")
-      .then((res) => res.json())
+      .then((res) => {
+        return res.json();
+      })
       .then((data) => {
         setCurrentTime(data.time);
       });
@@ -25,32 +51,44 @@ function App() {
   }, []);
 
   return (
-    <div
-      className="App"
-      style={{
-        background: "#E0EAFC",
-        background: "-webkit-linear-gradient(to right, #CFDEF3, #E0EAFC)",
-        background: "linear-gradient(to right, #CFDEF3, #E0EAFC)",
-      }}
-    >
-      <Weather lat={lat} lon={lon} />
-      <Covid />
-      <header className="App-header">
-        <h1>My Biseo</h1>
-        <Clock />
-        <button
-          onClick={() => {
-            get("/read?parameter=spring").then((response) => {
-              console.log(response.title);
-            });
-          }}
-        >
-          read요청
-        </button>
+    <>
+      <header
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "center",
+          margin: ".5rem",
+          background: "rgba(58, 58, 60)",
+        }}
+      >
+        <StyledHeaderDiv>Page Name</StyledHeaderDiv>
       </header>
-      <TodoContainer visibility={visibleFlg} />
-      <button onClick={() => setVisivleFlg(!visibleFlg)}>todo</button>
-    </div>
+      <StyledAppContainer className="App">
+        <div className="grid-item">
+          <h1>1</h1>
+          <Weather lat={lat} lon={lon} />
+          <Covid />
+        </div>
+        <div className="grid-item">
+          <header className="App-header">
+            <p style={{ color: "rgba(229, 229, 234)" }}>
+              The current time is {currentTime}.
+            </p>
+          </header>
+          <TodoContainer visibility={visibleFlg} />
+          <button onClick={() => setVisivleFlg(!visibleFlg)}>todo</button>
+        </div>
+        <div className="grid-item">
+          <h1>2</h1>
+          <Weather lat={lat} lon={lon} />
+          <Covid />
+        </div>
+        <div>
+          <Route exact path="/" component={Home}></Route>
+          <Route exact path="/about" component={About}></Route>
+        </div>
+      </StyledAppContainer>
+    </>
   );
 }
 

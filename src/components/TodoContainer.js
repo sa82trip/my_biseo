@@ -7,7 +7,6 @@ import styled from "styled-components";
 const H1 = styled.h1`
   color: gray;
   margin: 2px;
-  width: 100vh;
   // props를 이용하기
 `;
 // styled-component를 상속하기

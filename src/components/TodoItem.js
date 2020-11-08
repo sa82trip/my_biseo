@@ -5,7 +5,7 @@ const TodoItem = ({ updateHandle, deleteHandle, todo }) => {
   // python에서 받아온 data
 
   return (
-    <li name={todo.created_date}>
+    <li style={{ color: "white" }} name={todo.created_date}>
       {`${todo.author} : => ${todo.description} ${todo.created_date}`}
       <button
         name={todo.created_date}

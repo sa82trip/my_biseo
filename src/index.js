@@ -4,10 +4,11 @@ import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import Nav from "./layout/Nav";
 import App from "./App";
+import Root from "./Root";
 ReactDOM.render(
   <React.StrictMode>
     <Nav />
-    <App />
+    <Root />
   </React.StrictMode>,
   document.getElementById("root")
 );

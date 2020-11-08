@@ -16,10 +16,10 @@
     "web-vitals": "^0.2.4"
   },
   "scripts": {
+    "start": "react-scripts start",
     "start-api": "cd api && venv/bin/flask run --no-debugger",
-    "start": "cross-env NODE_PATH=src react-scripts start",
-    "build": "cross-env NODE_PATH=src react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
