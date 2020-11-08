@@ -3,9 +3,11 @@ import Weather from "./Weater";
 import Covid from "./Covid";
 import TodoContainer from "./components/TodoContainer";
 import styled from "styled-components";
-import { Route } from "react-router-dom";
-import { Home, About } from "./pages/";
+import Nav from "./layout/Nav";
+// import { Route } from "react-router-dom";
+// import { Home, About } from "./pages/";
 import "./css/app.css";
+import { useDispatch, useSelector } from "react-redux";
 
 const StyledHeaderDiv = styled.div`
   font-size: 3rem;
@@ -26,7 +28,8 @@ function App() {
   const [lon, setLon] = useState("");
   const [lat, setLat] = useState("");
   const [visibleFlg, setVisivleFlg] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const isLoading = useSelector((state) => state.isLoadingReducer);
+  const dispatch = useDispatch();
 
   // .then(() => {
   //   const el = document.querySelector(".loader-container");
@@ -35,6 +38,7 @@ function App() {
   //     setIsLoading(!isLoading);
   //   }
   // });
+
   useEffect(() => {
     console.log("isLoading", isLoading);
     fetch("/time")
@@ -52,6 +56,7 @@ function App() {
 
   return (
     <>
+      <Nav />
       <header
         style={{
           display: "flex",
@@ -83,10 +88,7 @@ function App() {
           <Weather lat={lat} lon={lon} />
           <Covid />
         </div>
-        <div>
-          <Route exact path="/" component={Home}></Route>
-          <Route exact path="/about" component={About}></Route>
-        </div>
+        <div></div>
       </StyledAppContainer>
     </>
   );
