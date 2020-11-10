@@ -73,7 +73,7 @@ const TodoContainer = (props) => {
   const selectAllTodos = (e) => {
     e.preventDefault();
     console.log("request!!!");
-    get("/selectAll").then((response) => setTodo(() => response.data));
+    get("/api/selectAll").then((response) => setTodo(() => response.data));
   };
   return (
     <StyledTodoContainer>
