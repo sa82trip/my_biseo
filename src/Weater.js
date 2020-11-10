@@ -14,7 +14,7 @@ const Weather = () => {
   // 일단 도시 이름 나오게 함
   // fetch and axios take response in different way
   useEffect(() => {
-    if ("geolocation" in navigator) {
+    if (navigator.geolocation) {
       console.log("Available");
     } else {
       console.log("Not Available");
