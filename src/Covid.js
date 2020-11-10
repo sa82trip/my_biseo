@@ -27,10 +27,13 @@ const Covid = () => {
   const [situation, setSituation] = useState([]);
 
   useEffect(() => {
-    fetch("/covid")
+    fetch("/api/covid")
       .then((res) => {
         res.json().then((data) => {
-          setSituation(() => data);
+          console.log(data.response.body.items.item);
+          const result = data.response.body.items.item;
+          setSituation(() => result.slice(0, 1));
+          console.log(result);
         });
       })
       .catch((error) => {
@@ -41,15 +44,15 @@ const Covid = () => {
   return (
     <CovidDiv>
       <ul>
-        {situation.response
-          ? situation.response.body.items.item.map((one) => (
+        {situation
+          ? situation.map((one) => (
               <StyledLi key={one.create_dt}>
-                {one.stateDt},
+                {one.stateDt}의 코로나소식,
                 <br /> 누적확진자
                 {expressionList[Math.round(Math.random() * 10)]}
                 {one.decideCnt}
                 <br />
-                누적사망자 {one.deathCnt}
+                누적사망자
                 {expressionList[Math.round(Math.random() * 10)]}
                 {one.deathCnt}
               </StyledLi>

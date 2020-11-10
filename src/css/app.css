@@ -2,3 +2,7 @@
   font-family: 'IBM Plex Serif', serif;
   src: local('IBM Plex Serif'), url(https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@600&display=swap);
 }
+
+h1 {
+    margin: 1em
+}

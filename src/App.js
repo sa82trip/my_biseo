@@ -4,10 +4,9 @@ import Covid from "./Covid";
 import TodoContainer from "./components/TodoContainer";
 import styled from "styled-components";
 import Nav from "./layout/Nav";
-// import { Route } from "react-router-dom";
-// import { Home, About } from "./pages/";
 import "./css/app.css";
 import { useDispatch, useSelector } from "react-redux";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 const StyledHeaderDiv = styled.div`
   font-size: 3rem;
@@ -18,26 +17,19 @@ const StyledHeaderDiv = styled.div`
 `;
 
 const StyledAppContainer = styled.div`
-  display: grid;
-  grid-template-columns: 1fr minmax(569px, auto) 1fr;
-  background: rgba(58, 58, 60);
+  display: flex;
+  justify-content: center;
+  align-itmes: stretch;
+  height: 100vh;
+  background: #aa4b6b;
+  background: -webkit-linear-gradient(to right, #3b8d99, #6b6b83, #aa4b6b);
+  background: linear-gradient(to right, #3b8d99, #6b6b83, #aa4b6b);
 `;
 
 function App() {
   const [currentTime, setCurrentTime] = useState("");
-  const [lon, setLon] = useState("");
-  const [lat, setLat] = useState("");
-  const [visibleFlg, setVisivleFlg] = useState(false);
   const isLoading = useSelector((state) => state.isLoadingReducer);
   const dispatch = useDispatch();
-
-  // .then(() => {
-  //   const el = document.querySelector(".loader-container");
-  //   if (el) {
-  //     el.remove();
-  //     setIsLoading(!isLoading);
-  //   }
-  // });
 
   useEffect(() => {
     console.log("isLoading", isLoading);
@@ -48,48 +40,50 @@ function App() {
       .then((data) => {
         setCurrentTime(data.time);
       });
-    navigator.geolocation.getCurrentPosition((loc) => {
-      setLon(() => loc.coords.longitude);
-      setLat(() => loc.coords.latitude);
-    });
-  }, []);
+  }, [isLoading]);
 
   return (
     <>
-      <Nav />
-      <header
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "center",
-          margin: ".5rem",
-          background: "rgba(58, 58, 60)",
-        }}
-      >
-        <StyledHeaderDiv>Page Name</StyledHeaderDiv>
-      </header>
-      <StyledAppContainer className="App">
-        <div className="grid-item">
-          <h1>1</h1>
-          <Weather lat={lat} lon={lon} />
-          <Covid />
-        </div>
-        <div className="grid-item">
-          <header className="App-header">
-            <p style={{ color: "rgba(229, 229, 234)" }}>
-              The current time is {currentTime}.
-            </p>
-          </header>
-          <TodoContainer visibility={visibleFlg} />
-          <button onClick={() => setVisivleFlg(!visibleFlg)}>todo</button>
-        </div>
-        <div className="grid-item">
-          <h1>2</h1>
-          <Weather lat={lat} lon={lon} />
-          <Covid />
-        </div>
-        <div></div>
-      </StyledAppContainer>
+      <Router>
+        <Nav />
+        <StyledAppContainer className="App">
+          <Switch>
+            <Route path="/info">
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  width: "620px",
+                }}
+              >
+                <header style={{ marginTop: "9rem" }} className="App-header">
+                  <p style={{ color: "rgba(229, 229, 234)" }}>
+                    The current time is {currentTime}.
+                  </p>
+                </header>
+                <Weather />
+                <Covid />
+              </div>
+            </Route>
+            <Route path="/todo">
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  width: "620px",
+                }}
+              >
+                <header style={{ marginTop: "9rem" }} className="App-header">
+                  <p style={{ color: "rgba(229, 229, 234)" }}>
+                    The current time is {currentTime}.
+                  </p>
+                </header>
+                <TodoContainer />
+              </div>
+            </Route>
+          </Switch>
+        </StyledAppContainer>
+      </Router>
     </>
   );
 }

@@ -4,6 +4,7 @@ const reverse_status = () => {
     type: "REVERSE",
   };
 };
+
 export default {
   reverse_status,
 };

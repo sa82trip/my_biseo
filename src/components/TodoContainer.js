@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import TodoList from "./TodoList";
 import { post, get } from "axios";
 import styled from "styled-components";
@@ -18,20 +18,13 @@ const H1ex = styled(H1)`
 const StyledTodoContainer = styled.div`
   display: flex;
   flex-direction: column;
-  align: center;
   justify-content: center;
-  visibility: ${(props) => (props.visibility ? "visible" : "collapse")};
+  width: 620px;
 `;
 const TodoContainer = (props) => {
   const [todo, setTodo] = useState([]);
   const [author, setAuthor] = useState("");
   const [description, setDescription] = useState("");
-  const [visibility, setVisibility] = useState(false);
-
-  useEffect(() => {
-    setVisibility(() => props.visibility);
-    console.log("state  ", visibility);
-  });
 
   const handleAuthorChange = (e) => {
     const author = e.target.value;
@@ -83,7 +76,7 @@ const TodoContainer = (props) => {
     get("/selectAll").then((response) => setTodo(() => response.data));
   };
   return (
-    <StyledTodoContainer visibility={visibility}>
+    <StyledTodoContainer>
       <H1>kandan Todo List</H1>
       <H1ex>write what you need to do!!</H1ex>
       <form style={{ display: "flex" }} onSubmit={postHandle}>

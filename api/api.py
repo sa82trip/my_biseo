@@ -17,9 +17,13 @@ todo={
         "is_done":"false"
         }
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='../build', static_url_path='/')
 
 past_result_list={}
+
+@app.route('/')
+def index():
+    return app.send_static_file('index.html') 
 
 @app.route('/time')
 def get_current_time():
@@ -56,11 +60,13 @@ def read():
     save_to_file(result)
     return{"result":result}
 
-@app.route("/weather")
+@app.route("/api/weather")
 def fetch_weather():
-    return request_weather_info()
+    lat = request.args["lat"]
+    lon = request.args["lon"]
+    return request_weather_info(lat, lon)
 
-@app.route("/covid")
+@app.route("/api/covid")
 def fetch_covid():
     return dumps(request_covid_info())
 
