@@ -14,6 +14,11 @@ const Weather = () => {
   // 일단 도시 이름 나오게 함
   // fetch and axios take response in different way
   useEffect(() => {
+    if ("geolocation" in navigator) {
+      console.log("Available");
+    } else {
+      console.log("Not Available");
+    }
     navigator.geolocation.getCurrentPosition((loc) => {
       setLon(() => loc.coords.longitude.toString());
       setLat(() => loc.coords.latitude.toString());
