@@ -48,7 +48,7 @@ const TodoContainer = (props) => {
         "content-type": "multipart/form-data",
       },
     };
-    post("/insert", formData, config).then((response) => {
+    post("/api/insert", formData, config).then((response) => {
       console.log(response);
       setTodo(response.data);
     });

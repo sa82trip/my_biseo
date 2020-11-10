@@ -32,7 +32,7 @@ def index():
 def get_current_time():
     return {'time': datetime.now()}
 
-@app.route('/insert', methods=['POST'])
+@app.route('/api/insert', methods=['POST'])
 def insert():
     print("insert")
     print(request.form['author'])
