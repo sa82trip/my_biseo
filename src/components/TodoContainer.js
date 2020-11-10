@@ -48,7 +48,7 @@ const TodoContainer = (props) => {
         "content-type": "multipart/form-data",
       },
     };
-    post("/api/insert", formData, config).then((response) => {
+    post("/insert", formData, config).then((response) => {
       console.log(response);
       setTodo(response.data);
     });
@@ -62,7 +62,7 @@ const TodoContainer = (props) => {
     const newTodos = todo.filter((one) => one.created_date !== name);
     console.log(newTodos);
     setTodo(() => newTodos);
-    fetch(`/delete?target=${name}`);
+    fetch(`/api/delete?target=${name}`);
   };
 
   const updateHandle = (e) => {
@@ -79,7 +79,7 @@ const TodoContainer = (props) => {
     <StyledTodoContainer>
       <H1>kandan Todo List</H1>
       <H1ex>write what you need to do!!</H1ex>
-      <form style={{ display: "flex" }} onSubmit={postHandle}>
+      <form style={{ display: "flex" }} onSubmit={postHandle} method="POST">
         <div>
           <input
             type="text"

@@ -9,6 +9,7 @@ from api_requester import request_weather_info, request_covid_info
 from db_credential import ID, PASSWORD
 from datetime import datetime
 from datetime import datetime, timedelta
+from flask_cors import CORS
 
 # example of document
 todo={
@@ -18,7 +19,9 @@ todo={
         }
 
 app = Flask(__name__, static_folder='../build', static_url_path='/')
+# app = Flask(__name__)
 
+CORS(app)
 past_result_list={}
 
 @app.route('/')
@@ -29,7 +32,7 @@ def index():
 def get_current_time():
     return {'time': datetime.now()}
 
-@app.route('/apt/insert', methods=['POST'])
+@app.route('/insert', methods=['POST'])
 def insert():
     print("insert")
     print(request.form['author'])
