@@ -33,7 +33,7 @@ function App() {
 
   useEffect(() => {
     console.log("isLoading", isLoading);
-    fetch("/time")
+    fetch("/api/time")
       .then((res) => {
         return res.json();
       })

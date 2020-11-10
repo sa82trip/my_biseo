@@ -25,7 +25,7 @@ past_result_list={}
 def index():
     return app.send_static_file('index.html') 
 
-@app.route('/time')
+@app.route('/api/time')
 def get_current_time():
     return {'time': datetime.now()}
 
@@ -40,7 +40,7 @@ def login():
     return result
 
 
-@app.route("/read")
+@app.route("/api/read")
 def read():
     parameter = request.args['parameter'].lower()
     #parameter = 'react'
@@ -70,7 +70,7 @@ def fetch_weather():
 def fetch_covid():
     return dumps(request_covid_info())
 
-@app.route("/delete")
+@app.route("/api/delete")
 def delete_one():
     print("gilgilgjil",request.args.get("target"))
     # work_with_mongo를 이용해서 지울것이다.
@@ -84,7 +84,7 @@ def delete_one():
     collection.delete_one({"created_date":request.args.get("target")})
     # 지워지는거까진 완료
     pass
-@app.route("/update")
+@app.route("/api/update")
 def update_one():
     filter={'created_date':request.args.get("target")}
     newValues={"$set":{'description':"update_test!!!"}}
@@ -98,7 +98,7 @@ def update_one():
     collection.update_one(filter, newValues)
 
 # select whole todos
-@app.route("/selectAll")
+@app.route("/api/selectAll")
 def selectAll():
     print("selectAll")
     user_id = ID
