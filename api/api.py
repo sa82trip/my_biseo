@@ -29,8 +29,9 @@ def index():
 def get_current_time():
     return {'time': datetime.now()}
 
-@app.route('/insert', methods=['POST'])
-def login():
+@app.route('/apt/insert', methods=['POST'])
+def insert():
+    print("insert")
     print(request.form['author'])
     print(request.form['description'])
     author = request.form['author']
