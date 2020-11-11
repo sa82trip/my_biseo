@@ -18,12 +18,27 @@ const StyledHeaderDiv = styled.div`
 
 const StyledAppContainer = styled.div`
   display: flex;
-  justify-content: center;
-  align-itmes: stretch;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-itmes: center;
   height: 100vh;
-  background: #aa4b6b;
-  background: -webkit-linear-gradient(to right, #3b8d99, #6b6b83, #aa4b6b);
-  background: linear-gradient(to right, #3b8d99, #6b6b83, #aa4b6b);
+  @media only screen and (max-width: 630px) {
+    background: #262626;
+    box-shadow: 3px 3px 5px black;
+  } // background: #aa4b6b; // background: -webkit-linear-gradient(to right, #3b8d99, #6b6b83, #aa4b6b) ; // background: linear-gradient(to right, #3b8d99, #6b6b83, #aa4b6b) ;
+`;
+
+const StyledVideo = styled.video`
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  top: 0;
+  padding: none;
+  z-index: -1;
+  position: fixed; /* optional depending on what you want to do in your app */
+  filter: opacity(60%);
 `;
 
 function App() {
@@ -45,44 +60,66 @@ function App() {
   return (
     <>
       <Router>
-        <Nav />
-        <StyledAppContainer className="App">
-          <Switch>
-            <Route path="/info">
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  width: "620px",
-                }}
-              >
-                <header style={{ marginTop: "9rem" }} className="App-header">
-                  <p style={{ color: "rgba(229, 229, 234)" }}>
-                    The current time is {currentTime}.
-                  </p>
-                </header>
-                <Weather />
-                <Covid />
-              </div>
-            </Route>
-            <Route path="/todo">
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  width: "620px",
-                }}
-              >
-                <header style={{ marginTop: "9rem" }} className="App-header">
-                  <p style={{ color: "rgba(229, 229, 234)" }}>
-                    The current time is {currentTime}.
-                  </p>
-                </header>
-                <TodoContainer />
-              </div>
-            </Route>
-          </Switch>
-        </StyledAppContainer>
+        <StyledVideo
+          loop
+          autoPlay
+          src="https://wedistill.io/uploads/videos/processed/1716/Northernlights2_HD.mp4.mp4"
+        ></StyledVideo>
+        <div
+          className="whole"
+          style={{ display: "flex", justifyContent: "space-evenly" }}
+        >
+          <div className="flex-left"></div>
+          <div
+            className="app"
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              flexDirection: "row",
+            }}
+          >
+            <StyledAppContainer className="App">
+              <Nav />
+              <Switch>
+                <Route path="/info">
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      width: "620px",
+                    }}
+                  >
+                    <header className="App-header">
+                      <p style={{ color: "rgba(229, 229, 234)" }}>
+                        The current time is {currentTime}.
+                      </p>
+                    </header>
+                    <Weather />
+                    <Covid />
+                  </div>
+                </Route>
+                <Route path="/todo">
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      width: "620px",
+                    }}
+                  >
+                    <header className="App-header">
+                      <p style={{ color: "rgba(229, 229, 234)" }}>
+                        The current time is {currentTime}.
+                      </p>
+                    </header>
+                    <TodoContainer />
+                  </div>
+                </Route>
+              </Switch>
+            </StyledAppContainer>
+          </div>
+          <div className="flex-right"></div>
+        </div>
       </Router>
     </>
   );

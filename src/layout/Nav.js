@@ -3,57 +3,44 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import allActions from "../actions/index";
 import { useDispatch } from "react-redux";
-import diary from "../img/diary.svg";
-import github from "../img/github.svg";
-import twitter from "../img/twitter.svg";
-import mail from "../img/mail.svg";
+import { StyledUl, StyledLi } from "../css/styled_components/StyledComponents";
+import Contact from "../components/Contact";
 
+// import Contact from "../components/Contact";
 // styled-components는 무조건 대문자로 시작해야한다.
+
 const StyledNav = styled.div`
-  border-bottom: 1px solid white;
+  border-bottom: 0.7rem solid #5f87af;
   font-weight: bold;
-  margin: 0.5rem 0 0 0;
+  margin: 0.5rem 0.5rem 0 0.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: fixed;
+  // position: fixed;
   top: 0;
   left: 0;
   right: 0;
+  @media only screen and (min-width: 630px) {
+  }
 `;
 
-const StyledUl = styled.ul`
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  justify-content: flex-start;
-`;
-
-const StyledLi = styled.li`
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-`;
 const Styleda = styled.a`
   text-decoration: none;
-  background-color: black;
-  color: rgba(94, 92, 230);
+  color: #81a681;
   font-size: 3vh;
   font-weight: bold;
   font-family: monospace;
   transition: background 2s;
   &:hover {
     transform: rotate(360deg);
-    background: #e0eafc;
     opacity: 30%;
   }
 `;
 
 const StyledLink = styled(Link)`
   text-decoration: none;
-  color: rgba(94, 92, 230);
+  // color: rgba(94, 92, 230);
+  color: #81a681;
   font-size: 3vh;
   font-weight: bold;
   font-family: monospace;
@@ -66,7 +53,8 @@ const StyledLink = styled(Link)`
   }
 `;
 const StyledAppName = styled.div`
-  color: #fcba03;
+  // color: #fcba03;
+  color: #bc5656;
   font-size: 5rem;
   padding: 0 0 1rem 0;
   &:hover {
@@ -79,34 +67,13 @@ const Nav = () => {
   return (
     <>
       <StyledNav>
-        <div>
-          <img src={diary} alt="" style={{ width: "5rem" }} />
-          <StyledUl
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-around",
-            }}
-          >
-            <StyledLi>
-              <a target="_" href="https://github.com/sa82trip">
-                <img src={github} alt="" />
-              </a>
-            </StyledLi>
-            <StyledLi>
-              <a target="_" href="https://twitter.com/vim_gil">
-                <img src={twitter} alt="" />
-              </a>
-            </StyledLi>
-            <StyledLi>
-              <a href="mailto:sa82trip@gmail.com">
-                <img src={mail} alt="" />
-              </a>
-            </StyledLi>
-          </StyledUl>
-        </div>
         <StyledAppName> My Biseo </StyledAppName>
-        <StyledUl>
+        <div>
+          {/*
+          <img src={diary} alt="" style={{ width: "5rem" }} />
+            */}
+        </div>
+        <StyledUl className="manu">
           <Styleda target="_" href="https://github.com/sa82trip">
             <StyledLi>github</StyledLi>
           </Styleda>
@@ -129,6 +96,7 @@ const Nav = () => {
               <StyledLi>info</StyledLi>
             </StyledLink>
           </Styleda>
+          <Contact />
         </StyledUl>
       </StyledNav>
     </>
