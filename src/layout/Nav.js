@@ -53,7 +53,6 @@ const StyledLink = styled(Link)`
     color: red;
   }
   @media only screen and (max-width: 430px) {
-    font-size: 3rem;
   }
 `;
 const StyledAppName = styled.div`
