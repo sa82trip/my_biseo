@@ -38,7 +38,12 @@ const Weather = () => {
     }
   }, [lat, lon]);
 
-  if (localStatus) return <div className="loader"></div>;
+  if (localStatus)
+    return (
+      <div className="loader-container">
+        <div className="loader"></div>
+      </div>
+    );
   return (
     <div style={{ color: "rgba(229, 229, 234)", margin: "1em" }}>
       {data

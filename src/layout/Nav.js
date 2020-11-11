@@ -15,12 +15,13 @@ const StyledNav = styled.div`
   margin: 0.5rem 0.5rem 0 0.5rem;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: space-around;
   // position: fixed;
   top: 0;
   left: 0;
   right: 0;
   @media only screen and (min-width: 630px) {
+    align-items: space-around;
   }
 `;
 
@@ -51,6 +52,9 @@ const StyledLink = styled(Link)`
   &:active {
     color: red;
   }
+  @media only screen and (max-width: 430px) {
+    font-size: 3rem;
+  }
 `;
 const StyledAppName = styled.div`
   // color: #fcba03;
@@ -59,6 +63,9 @@ const StyledAppName = styled.div`
   padding: 0 0 1rem 0;
   &:hover {
     color: red;
+  }
+  @media only screen and (max-width: 430px) {
+    font-weight: 900;
   }
 `;
 
@@ -73,12 +80,16 @@ const Nav = () => {
           <img src={diary} alt="" style={{ width: "5rem" }} />
             */}
         </div>
-        <StyledUl className="manu">
+        <StyledUl className="menu">
+          {/*
           <Styleda target="_" href="https://github.com/sa82trip">
             <StyledLi>github</StyledLi>
           </Styleda>
+            */}
           <Styleda>
-            <StyledLi>My Biseo</StyledLi>
+            <StyledLink to="/">
+              <StyledLi>MyBiseo</StyledLi>
+            </StyledLink>
           </Styleda>
           <Styleda
             name="TODO"

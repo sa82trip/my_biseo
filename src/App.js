@@ -7,6 +7,7 @@ import Nav from "./layout/Nav";
 import "./css/app.css";
 import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { useViewport } from "./context/ViewportProvider";
 
 const StyledHeaderDiv = styled.div`
   font-size: 3rem;
@@ -21,10 +22,11 @@ const StyledAppContainer = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-itmes: center;
-  height: 100vh;
+  // height: 100vh;
   @media only screen and (max-width: 630px) {
     background: #262626;
     box-shadow: 3px 3px 5px black;
+    height: auto;
   } // background: #aa4b6b; // background: -webkit-linear-gradient(to right, #3b8d99, #6b6b83, #aa4b6b) ; // background: linear-gradient(to right, #3b8d99, #6b6b83, #aa4b6b) ;
 `;
 
@@ -45,6 +47,7 @@ function App() {
   const [currentTime, setCurrentTime] = useState("");
   const isLoading = useSelector((state) => state.isLoadingReducer);
   const dispatch = useDispatch();
+  const { height } = useViewport();
 
   useEffect(() => {
     console.log("isLoading", isLoading);
@@ -55,7 +58,7 @@ function App() {
       .then((data) => {
         setCurrentTime(data.time);
       });
-  }, [isLoading]);
+  }, [isLoading, height]);
 
   return (
     <>
@@ -79,7 +82,10 @@ function App() {
               flexDirection: "row",
             }}
           >
-            <StyledAppContainer className="App">
+            <StyledAppContainer
+              containerHeight={() => height - 10}
+              className="App"
+            >
               <Nav />
               <Switch>
                 <Route path="/info">
@@ -87,11 +93,10 @@ function App() {
                     style={{
                       display: "flex",
                       flexDirection: "column",
-                      width: "620px",
                     }}
                   >
                     <header className="App-header">
-                      <p style={{ color: "rgba(229, 229, 234)" }}>
+                      <p style={{ color: "#d787af" }}>
                         The current time is {currentTime}.
                       </p>
                     </header>
@@ -104,11 +109,10 @@ function App() {
                     style={{
                       display: "flex",
                       flexDirection: "column",
-                      width: "620px",
                     }}
                   >
                     <header className="App-header">
-                      <p style={{ color: "rgba(229, 229, 234)" }}>
+                      <p style={{ color: "#d787af" }}>
                         The current time is {currentTime}.
                       </p>
                     </header>
