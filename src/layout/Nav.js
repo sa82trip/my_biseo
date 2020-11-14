@@ -73,18 +73,9 @@ const Nav = () => {
   return (
     <>
       <StyledNav>
-        <StyledAppName> My Biseo </StyledAppName>
-        <div>
-          {/*
-          <img src={diary} alt="" style={{ width: "5rem" }} />
-            */}
-        </div>
+        <StyledAppName>My Biseo</StyledAppName>
+        <div></div>
         <StyledUl className="menu">
-          {/*
-          <Styleda target="_" href="https://github.com/sa82trip">
-            <StyledLi>github</StyledLi>
-          </Styleda>
-            */}
           <Styleda>
             <StyledLink to="/">
               <StyledLi>MyBiseo</StyledLi>

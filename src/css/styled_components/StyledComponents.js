@@ -12,6 +12,16 @@ export const StyledLi = styled.li`
   list-style-type: none;
   margin: 0;
   padding: 0;
+  transition: transform 3s;
+  -webkit-transition: color 300ms linear;
+  -moz-transition: color 300ms linear;
+  -o-transition: color 300ms linear;
+  -ms-transition: color 300ms linear;
+  transition: color 300ms linear;
+  &:hover {
+    color: white;
+    text-decoration: underline wavy red;
+  }
   @media only screen and (max-width: 450px) {
     font-weight: 900;
   }
@@ -26,6 +36,7 @@ export const StyledForm = styled.form`
   }
 `;
 export const StyledInput = styled.input`
+    width:200px; 
     @media only screen and (max-width: 450px) {
         width:${(props) => props.inputWidth + "px"};
         margin: 0 0.5rem 0 0.5rem;

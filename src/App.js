@@ -46,11 +46,9 @@ const StyledVideo = styled.video`
 function App() {
   const [currentTime, setCurrentTime] = useState("");
   const isLoading = useSelector((state) => state.isLoadingReducer);
-  const dispatch = useDispatch();
   const { height } = useViewport();
 
   useEffect(() => {
-    console.log("isLoading", isLoading);
     fetch("/api/time")
       .then((res) => {
         return res.json();
