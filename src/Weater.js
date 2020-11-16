@@ -47,8 +47,8 @@ const Weather = () => {
   return (
     <div style={{ color: "rgba(229, 229, 234)", margin: "1em" }}>
       {data
-        ? `${data["name"]}의 날씨 : ${data["weather"][0].description}`
-        : "현재 날씨 정보 알 수 없음"}
+        ? `The weather of ${data["name"]} : ${data["weather"][0].description}`
+        : "not available currently"}
     </div>
   );
 };

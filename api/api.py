@@ -72,7 +72,7 @@ def fetch_weather():
 
 @app.route("/api/covid")
 def fetch_covid():
-    return dumps(request_covid_info())
+    return (request_covid_info())
 
 @app.route("/api/delete")
 def delete_one():
@@ -81,10 +81,10 @@ def delete_one():
     user_id =ID
     user_password = PASSWORD
     # mongodb connection
-    client = MongoClient('mongodb://%s:%s@193.122.104.7:27017/' % ("myUserAdmin", "abc123"))
-    # mongo --port 27017  --authenticationDatabase "admin" -u "myUserAdmin" -p
-    db = client.test_database
-    collection = db.test_collection
+    client = MongoClient('mongodb://%s:%s@193.122.104.7:27017/' % (ID, PASSWORD))
+    # mongo --port 27017  --authenticationDatabase "admin" -u ID -p
+    db = client.mybiseo_database
+    collection = db.todo_collection
     collection.delete_one({"created_date":request.args.get("target")})
     # 지워지는거까진 완료
     pass
@@ -95,10 +95,10 @@ def update_one():
     user_id =ID 
     user_password = PASSWORD
     # mongodb connection
-    client = MongoClient('mongodb://%s:%s@193.122.104.7:27017/' % ("myUserAdmin", "abc123"))
-    # mongo --port 27017  --authenticationDatabase "admin" -u "myUserAdmin" -p
-    db = client.test_database
-    collection = db.test_collection
+    client = MongoClient('mongodb://%s:%s@193.122.104.7:27017/' % (ID, PASSWORD))
+    # mongo --port 27017  --authenticationDatabase "admin" -u ID -p
+    db = client.mybiseo_database
+    collection = db.todo_collection
     collection.update_one(filter, newValues)
 
 # select whole todos
@@ -108,10 +108,10 @@ def selectAll():
     user_id = ID
     user_password = PASSWORD
     # mongodb connection
-    client = MongoClient('mongodb://%s:%s@193.122.104.7:27017/' % ("myUserAdmin", "abc123"))
-    # mongo --port 27017  --authenticationDatabase "admin" -u "myUserAdmin" -p
-    db = client.test_database
-    collection = db.test_collection
+    client = MongoClient('mongodb://%s:%s@193.122.104.7:27017/' % (ID, PASSWORD))
+    # mongo --port 27017  --authenticationDatabase "admin" -u ID -p
+    db = client.mybiseo_database
+    collection = db.todo_collection
     dumped_result = dumps(collection.find())
     result=dumped_result
     print(dumped_result)
@@ -123,10 +123,10 @@ def work_with_mongo(author, description, kind):
     user_id =ID
     user_password = PASSWORD
     # mongodb connection
-    client = MongoClient('mongodb://%s:%s@193.122.104.7:27017/' % ("myUserAdmin", "abc123"))
-    # mongo --port 27017  --authenticationDatabase "admin" -u "myUserAdmin" -p
-    db = client.test_database
-    collection = db.test_collection
+    client = MongoClient('mongodb://%s:%s@193.122.104.7:27017/' % (ID, PASSWORD))
+    # mongo --port 27017  --authenticationDatabase "admin" -u ID -p
+    db = client.mybiseo_database
+    collection = db.todo_collection
     result=dumps([])
 
     if kind == "insert":
@@ -139,6 +139,7 @@ def work_with_mongo(author, description, kind):
             "created_date":now,
             "updated_date":now
             }).inserted_id
+        print(post_id)
 
     if kind == "select":
         dumped_result = dumps(collection.find({}))

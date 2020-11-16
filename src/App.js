@@ -8,6 +8,7 @@ import "./css/app.css";
 import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { useViewport } from "./context/ViewportProvider";
+import MyInfo from "./MyInfo";
 
 const StyledHeaderDiv = styled.div`
   font-size: 3rem;
@@ -56,7 +57,7 @@ function App() {
       .then((data) => {
         setCurrentTime(data.time);
       });
-  }, [isLoading, height]);
+  }, [isLoading]);
 
   return (
     <>
@@ -86,6 +87,9 @@ function App() {
             >
               <Nav />
               <Switch>
+                <Route path="/" exact={true}>
+                  <MyInfo />
+                </Route>
                 <Route path="/info">
                   <div
                     style={{
