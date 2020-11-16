@@ -65,8 +65,8 @@ const TodoContainer = (props) => {
   };
   return (
     <StyledTodoContainer>
-      <StyledH1>kandan Todo List</StyledH1>
-      <H1ex>write what you need to do!!</H1ex>
+      <StyledH1>SIMPLE TODO LIST</StyledH1>
+      <H1ex>WRITE WHAT YOU NEED TO DO!!</H1ex>
       <StyledForm
         style={{ display: "flex" }}
         onSubmit={postHandle}

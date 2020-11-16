@@ -31,8 +31,7 @@ const Covid = () => {
     try {
       fetch("/api/covid").then((res) => {
         res.json().then((data) => {
-          console.log(data.response.body.items.item);
-          const result = data.response.body.items.item;
+          const result = data["parsed_result"].response.body.items.item;
           console.log(result);
           if (result.length > 1) {
             setSituation(() => result.slice(0, 1));
@@ -58,17 +57,17 @@ const Covid = () => {
                   console.log("clicked!");
                 }}
               >
-                {one.stateDt}의 코로나소식,
-                <br /> 누적확진자
+                brief info of {one.stateDt}
+                <br /> accumulated confirmed patient
                 {expressionList[Math.round(Math.random() * 10)]}
                 {one.decideCnt}
                 <br />
-                누적사망자
+                accumulated death case
                 {expressionList[Math.round(Math.random() * 10)]}
                 {one.deathCnt}
               </StyledLi>
             ))
-          : "COVID관련 정보 업데이트중 9AM 예정"}
+          : "It is not available temporary"}
       </ul>
     </CovidDiv>
   );
