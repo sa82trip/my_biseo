@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 import allActions from "../actions/index";
 import { useDispatch } from "react-redux";
-import { StyledUl, StyledLi } from "../css/styled_components/StyledComponents";
+import {
+  StyledLink,
+  StyledUl,
+  StyledLi,
+} from "../css/styled_components/StyledComponents";
 import Contact from "../components/Contact";
+import { useOnClickOutside } from "../hooks";
+import { Burger, Menu } from "../components";
 
 // import Contact from "../components/Contact";
 // styled-components는 무조건 대문자로 시작해야한다.
@@ -16,7 +21,7 @@ const StyledNav = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: space-around;
-  // position: fixed;
+  position: relative;
   top: 0;
   left: 0;
   right: 0;
@@ -38,23 +43,6 @@ const Styleda = styled.a`
   }
 `;
 
-const StyledLink = styled(Link)`
-  text-decoration: none;
-  // color: rgba(94, 92, 230);
-  color: #81a681;
-  font-size: 3vh;
-  font-weight: bold;
-  font-family: monospace;
-  &:hover {
-    background: #e0eafc;
-    opacity: 30%;
-  }
-  &:active {
-    color: red;
-  }
-  @media only screen and (max-width: 430px) {
-  }
-`;
 const StyledAppName = styled.div`
   // color: #fcba03;
   color: #bc5656;
@@ -68,35 +56,56 @@ const StyledAppName = styled.div`
   }
 `;
 
-const Nav = () => {
+const StyledDisDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  @media only screen and (max-width: 576px) {
+    visibility: hidden;
+  }
+`;
+
+const Nav = ({ width, theme, open, setOpen }) => {
   const dispatch = useDispatch();
+  const node = useRef();
+  useOnClickOutside(node, () => setOpen(false));
   return (
     <>
       <StyledNav>
-        <StyledAppName>My Biseo</StyledAppName>
+        <div ref={node}>
+          <Burger open={open} setOpen={setOpen} />
+          <Menu open={open} setOpen={setOpen} />
+        </div>
+        <StyledAppName>
+          {width > parseInt(theme.mobile) ? "My Biseo" : "MBS"}
+        </StyledAppName>
         <div></div>
         <StyledUl className="menu">
-          <Styleda>
-            <StyledLink to="/">
-              <StyledLi>MyBiseo</StyledLi>
-            </StyledLink>
-          </Styleda>
-          <Styleda
-            name="TODO"
-            onClick={() => dispatch(allActions.setCurrentPage("TODO"))}
-          >
-            <StyledLink to="/todo">
-              <StyledLi>Todo</StyledLi>
-            </StyledLink>
-          </Styleda>
-          <Styleda
-            name="INFO"
-            onClick={() => dispatch(allActions.setCurrentPage("INFO"))}
-          >
-            <StyledLink to="/info">
-              <StyledLi>info</StyledLi>
-            </StyledLink>
-          </Styleda>
+          <StyledDisDiv className="oList">
+            <Styleda>
+              <StyledLink to="/">
+                <StyledLi>MyBiseo</StyledLi>
+              </StyledLink>
+            </Styleda>
+            <Styleda
+              name="TODO"
+              onClick={() => dispatch(allActions.setCurrentPage("TODO"))}
+            >
+              <StyledLink to="/todo">
+                <StyledLi>Todo</StyledLi>
+              </StyledLink>
+            </Styleda>
+            <Styleda
+              name="INFO"
+              onClick={() => dispatch(allActions.setCurrentPage("INFO"))}
+            >
+              <StyledLink to="/info">
+                <StyledLi>info</StyledLi>
+              </StyledLink>
+            </Styleda>
+          </StyledDisDiv>
           <Contact />
         </StyledUl>
       </StyledNav>

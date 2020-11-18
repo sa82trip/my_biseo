@@ -70,9 +70,15 @@ def request_covid_info():
     # inserting(parsed_result["response"]["body"]["items"]["item"])
 
     # take out data of current date only
-    insert_result = inserting_covid_info(parsed_result["response"]["body"]["items"]["item"][0], today)
-    total_result={
-            "insert_result":insert_result,
-            "parsed_result":parsed_result
-            }
+    if isinstance (parsed_result["response"]["body"]["items"]["item"], list):
+        insert_result = inserting_covid_info(parsed_result["response"]["body"]["items"]["item"][0], today)
+        total_result={
+                "insert_result":insert_result,
+                "parsed_result":parsed_result
+                }
+    else:
+        total_result={
+                "parsed_result":parsed_result
+                }
+
     return total_result

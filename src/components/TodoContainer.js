@@ -7,8 +7,10 @@ import {
   StyledH1,
   H1ex,
   StyledInput,
+  StyledButton,
 } from "../css/styled_components/StyledComponents";
 import { useViewport } from "../context/ViewportProvider";
+import "../css/todo.css";
 
 const StyledTodoContainer = styled.div`
   display: flex;
@@ -79,6 +81,7 @@ const TodoContainer = (props) => {
             name="author"
             value={author}
             onChange={handleAuthorChange}
+            className="writerInput"
           />
         </div>
         <div>
@@ -88,11 +91,16 @@ const TodoContainer = (props) => {
             name="description"
             value={description}
             onChange={handleDescriptionChange}
+            className="descriptionInput"
           />
         </div>
         <div style={{ display: "flex", alignItems: "stretch" }}>
-          <button type="submit">todo 등록하기</button>
-          <button onClick={selectAllTodos}>todos</button>
+          <StyledButton className="submitStyledButton" type="submit">
+            todo 등록하기
+          </StyledButton>
+          <StyledButton className="loadStyledButton" onClick={selectAllTodos}>
+            todos
+          </StyledButton>
         </div>
       </StyledForm>
       <TodoList
