@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Weather from "./Weater";
 import Covid from "./Covid";
 import TodoContainer from "./components/TodoContainer";
@@ -9,6 +9,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { useViewport } from "./context/ViewportProvider";
 import MyInfo from "./MyInfo";
+import { ThemeProvider } from "styled-components";
+import { GlobalStyles } from "./global";
+import { theme } from "./theme";
+import { useOnClickOutside } from "./hooks";
 
 const StyledHeaderDiv = styled.div`
   font-size: 3rem;
@@ -25,7 +29,9 @@ const StyledAppContainer = styled.div`
   align-itmes: center;
   // height: 100vh;
   @media only screen and (max-width: 630px) {
-    background: #262626;
+     {
+      /* background: #262626; */
+    }
     box-shadow: 3px 3px 5px black;
     height: auto;
   } // background: #aa4b6b; // background: -webkit-linear-gradient(to right, #3b8d99, #6b6b83, #aa4b6b) ; // background: linear-gradient(to right, #3b8d99, #6b6b83, #aa4b6b) ;
@@ -47,7 +53,10 @@ const StyledVideo = styled.video`
 function App() {
   const [currentTime, setCurrentTime] = useState("");
   const isLoading = useSelector((state) => state.isLoadingReducer);
-  const { height } = useViewport();
+  const [open, setOpen] = useState(false);
+  const { width, height } = useViewport();
+  const node = useRef();
+  useOnClickOutside(node, () => setOpen(false));
 
   useEffect(() => {
     fetch("/api/time")
@@ -60,74 +69,82 @@ function App() {
   }, [isLoading]);
 
   return (
-    <>
-      <Router>
-        <StyledVideo
-          loop
-          autoPlay
-          src="https://wedistill.io/uploads/videos/processed/1716/Northernlights2_HD.mp4.mp4"
-        ></StyledVideo>
-        <div
-          className="whole"
-          style={{ display: "flex", justifyContent: "space-evenly" }}
-        >
-          <div className="flex-left"></div>
+    <ThemeProvider theme={theme}>
+      <>
+        <GlobalStyles />
+        <Router>
+          <StyledVideo
+            loop
+            autoPlay
+            src="https://wedistill.io/uploads/videos/processed/1716/Northernlights2_HD.mp4.mp4"
+          ></StyledVideo>
           <div
-            className="app"
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              flexDirection: "row",
-            }}
+            className="whole"
+            style={{ display: "flex", justifyContent: "space-evenly" }}
           >
-            <StyledAppContainer
-              containerHeight={() => height - 10}
-              className="App"
+            <div className="flex-left"></div>
+            <div
+              className="app"
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                flexDirection: "row",
+              }}
             >
-              <Nav />
-              <Switch>
-                <Route path="/" exact={true}>
-                  <MyInfo />
-                </Route>
-                <Route path="/info">
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                    }}
-                  >
-                    <header className="App-header">
-                      <p style={{ color: "#d787af" }}>
-                        The current time is {currentTime}.
-                      </p>
-                    </header>
-                    <Weather />
-                    <Covid />
-                  </div>
-                </Route>
-                <Route path="/todo">
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                    }}
-                  >
-                    <header className="App-header">
-                      <p style={{ color: "#d787af" }}>
-                        The current time is {currentTime}.
-                      </p>
-                    </header>
-                    <TodoContainer />
-                  </div>
-                </Route>
-              </Switch>
-            </StyledAppContainer>
+              <StyledAppContainer
+                containerHeight={() => height - 10}
+                className="App"
+              >
+                <Nav
+                  width={width}
+                  theme={theme}
+                  open={open}
+                  setOpen={setOpen}
+                />
+                <Switch>
+                  <Route path="/" exact={true}>
+                    <MyInfo />
+                  </Route>
+                  <Route path="/info">
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                      }}
+                    >
+                      <header className="App-header">
+                        <p style={{ color: "#d787af" }}>
+                          The current time is {currentTime}.
+                        </p>
+                      </header>
+                      <Weather />
+                      <Covid />
+                    </div>
+                  </Route>
+                  <Route path="/todo">
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                      }}
+                    >
+                      <header className="App-header">
+                        <p style={{ color: "#d787af" }}>
+                          The current time is {currentTime}.
+                        </p>
+                      </header>
+                      <TodoContainer />
+                    </div>
+                  </Route>
+                </Switch>
+              </StyledAppContainer>
+            </div>
+            <div className="flex-right"></div>
           </div>
-          <div className="flex-right"></div>
-        </div>
-      </Router>
-    </>
+        </Router>
+      </>
+    </ThemeProvider>
   );
 }
 
