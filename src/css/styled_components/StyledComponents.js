@@ -38,11 +38,12 @@ export const StyledForm = styled.form`
 `;
 export const StyledButton = styled.button`
   @media only screen and (max-width: 575px) {
-    color: red;
+    color: #5f87af;
+    font-weight: 600;
     border: 0;
     padding: 1rem;
     font-size: 0.8rem;
-    margin: 10px;
+    margin: 5px;
   }
 `;
 export const StyledInput = styled.input`
