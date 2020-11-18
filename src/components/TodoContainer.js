@@ -96,10 +96,10 @@ const TodoContainer = (props) => {
         </div>
         <div style={{ display: "flex", alignItems: "stretch" }}>
           <StyledButton className="submitStyledButton" type="submit">
-            todo 등록하기
+            ADD TODO
           </StyledButton>
           <StyledButton className="loadStyledButton" onClick={selectAllTodos}>
-            todos
+            LOAD TODO
           </StyledButton>
         </div>
       </StyledForm>

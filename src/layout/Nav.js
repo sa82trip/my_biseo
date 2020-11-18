@@ -10,6 +10,7 @@ import {
 import Contact from "../components/Contact";
 import { useOnClickOutside } from "../hooks";
 import { Burger, Menu } from "../components";
+import { Link } from "react-router-dom";
 
 // import Contact from "../components/Contact";
 // styled-components는 무조건 대문자로 시작해야한다.
@@ -79,7 +80,18 @@ const Nav = ({ width, theme, open, setOpen }) => {
           <Menu open={open} setOpen={setOpen} />
         </div>
         <StyledAppName>
-          {width > parseInt(theme.mobile) ? "My Biseo" : "MBS"}
+          <Link
+            style={{
+              textDecoration: "none",
+              color: "#bc5656",
+              fontSize: "5rem",
+              padding: "0 0 1rem 0",
+            }}
+            to="/"
+            exact={true}
+          >
+            {width > parseInt(theme.mobile) ? "My Biseo" : "MBS"}
+          </Link>
         </StyledAppName>
         <div></div>
         <StyledUl className="menu">

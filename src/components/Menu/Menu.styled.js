@@ -8,7 +8,7 @@ export const StyledMenu = styled.nav`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background: ${({ theme }) => theme.primaryLight};
+  background: ${({ theme }) => theme.primaryDark};
   height: 50vh;
   text-align: left;
   padding: 2rem;
@@ -33,12 +33,13 @@ export const StyledMenu = styled.nav`
     padding: 2rem 0;
     font-weight: bold;
     letter-spacing: 0.5rem;
-    color: ${({ theme }) => theme.primaryDark};
+    color: ${({ theme }) => theme.primaryLight};
     text-decoration: none;
     transition: color 0.3s linear;
 
     @media (max-width: ${({ theme }) => theme.mobile}) {
       font-size: 1.5rem;
+      font-weight: 700;
       text-align: center;
     }
 
