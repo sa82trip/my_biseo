@@ -68,7 +68,12 @@ const TodoContainer = (props) => {
   return (
     <StyledTodoContainer>
       <StyledH1>SIMPLE TODO LIST</StyledH1>
-      <H1ex>WRITE WHAT YOU NEED TO DO!!</H1ex>
+      <H1ex>
+        WRITE WHAT YOU NEED TO DO!
+        <span className="blinking">
+          <span>&nbsp;&nbsp;</span>
+        </span>
+      </H1ex>
       <StyledForm
         style={{ display: "flex" }}
         onSubmit={postHandle}
