@@ -3,6 +3,7 @@
 ## description
 very simple app which offer basic infos of today and it also provides simple todo list.  
 this web application for mobile and desktop.
+you can check most recent released version on https://mybiseo.tk
 
 ## used stack
 React.js(styled-compoents), flask, MongoDB
