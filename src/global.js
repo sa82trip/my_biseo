@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import {createGlobalStyle} from "styled-components";
 
 export const GlobalStyles = createGlobalStyle`
   html, body {
@@ -19,7 +19,8 @@ export const GlobalStyles = createGlobalStyle`
     text-rendering: optimizeLegibility;
   }
 
-.blinking{ background-color:gray;
+	.blinking{
+		    background-color:gray;
             -webkit-animation:blink .5s ease-in-out infinite alternate;
             -moz-animation:blink .5s ease-in-out infinite alternate;
             animation:blink .5s ease-in-out infinite alternate;
