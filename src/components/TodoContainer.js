@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import TodoList from "./TodoList";
 import { post, get } from "axios";
 import styled from "styled-components";
@@ -48,13 +48,15 @@ const TodoContainer = (props) => {
     });
   };
 
-  const deleteHandle = (e) => {
-    e.preventDefault();
+  const deleteHandle = (created_date) => {
+    console.log(created_date);
+    // e.preventDefault();
     // li는 value가 무조건 number라는걸 잊지마라.
-    const name = e.target.getAttribute("name");
-    const newTodos = todo.filter((one) => one.created_date !== name);
+    // const name = e.target.getAttribute("name");
+    // const newTodos = todo.filter((one) => one.created_date !== name);
+    const newTodos = todo.filter((one) => one.created_date !== created_date);
     setTodo(() => newTodos);
-    fetch(`/api/delete?target=${name}`);
+    fetch(`/api/delete?target=${created_date}`);
   };
 
   const updateHandle = (e) => {
