@@ -6,6 +6,9 @@ const StyledP = styled.p``;
 const StyledStrong = styled.strong`
   color: skyblue;
 `;
+const StyledAnchor = styled.a`
+  text-decoration: none;
+`;
 
 const MyInfo = () => {
   return (
@@ -15,12 +18,30 @@ const MyInfo = () => {
         This web applicaiotn is for educationla purpose. not for any other
         reason.
         <br />I used &nbsp;
-        <StyledStrong>React.js with styled_components</StyledStrong> for
-        constructing layout and components. <br />
-        <StyledStrong>flask</StyledStrong> for building backend.{" "}
-        <StyledStrong>mongoDB</StyledStrong> for store database.
+        <StyledAnchor href="https://reactjs.org/" target="_">
+          <StyledStrong>React.js </StyledStrong>
+        </StyledAnchor>
+        with
+        <StyledAnchor href="https://styled-components.com/" target="_">
+          <StyledStrong> styled_components </StyledStrong>
+        </StyledAnchor>
+        for constructing layout and components. <br />
+        <StyledAnchor href="https://styled-components.com/" target="_">
+          <StyledStrong>flask </StyledStrong>
+        </StyledAnchor>
+        for building backend.
+        <StyledAnchor href="https://www.mongodb.com/" target="_">
+          <StyledStrong> mongoDB </StyledStrong>
+        </StyledAnchor>
+        for store database.
         <br />
-        <StyledStrong>Nginx, gunigorn</StyledStrong> for server.
+        <StyledAnchor href="https://www.nginx.com/" target="_">
+          <StyledStrong>Nginx, </StyledStrong>
+        </StyledAnchor>
+        <StyledAnchor href="https://gunicorn.org/" target="_">
+          <StyledStrong> gunigorn </StyledStrong>
+        </StyledAnchor>
+        for server.
       </StyledP>
     </div>
   );

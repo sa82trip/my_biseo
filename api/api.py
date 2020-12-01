@@ -10,6 +10,7 @@ from db_credential import ID, PASSWORD
 from datetime import datetime
 from datetime import datetime, timedelta
 from flask_cors import CORS
+from scraper_with_selenium import getProductInfo
 
 # example of document
 todo={
@@ -117,6 +118,10 @@ def selectAll():
     print(dumped_result)
     return result
 
+@app.route("/api/mom")
+def searchForItem():
+    getProductInfo()
+    pass
 
 
 def work_with_mongo(author, description, kind):

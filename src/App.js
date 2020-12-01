@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import Weather from "./Weater";
+import Weather from "./Weather";
 import Covid from "./Covid";
 import TodoContainer from "./components/TodoContainer";
 import styled from "styled-components";
